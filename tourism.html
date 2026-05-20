@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Discover Philippines — Department of Tourism</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --ink-light: #3d3d3d;
+    --ink-muted: #7a7a7a;
+    --cream: #faf7f2;
+    --paper: #f2ede4;
+    --gold: #c9a84c;
+    --gold-light: #e8d49a;
+    --ocean: #0e4d6e;
+    --ocean-mid: #1a6e94;
+    --sky: #d4eaf7;
+    --sun: #f5c842;
+    --coral: #e8614a;
+    --white: #ffffff;
+    --rule: rgba(10,10,10,0.12);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--coral);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.18s ease, width 0.3s, height 0.3s, opacity 0.3s;
+  }
+  .cursor.hover { width:20px; height:20px; background: var(--gold); }
+  .cursor-ring.hover { width:54px; height:54px; opacity:0.4; }
+
+  /* ANNOUNCEMENT BAR */
+  .announcement {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 11px 0;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .announcement-inner {
+    max-width: 1440px;
+    margin: auto;
+    padding: 0 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .announcement-scroll {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+  }
+  .ann-dot { width:5px; height:5px; background: var(--gold); border-radius:50%; display:inline-block; margin-right:10px; }
+  .announcement a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing:0.04em;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    background: rgba(250,247,242,0.94);
+    backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid var(--rule);
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: auto;
+    padding: 0 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+  }
+  .logo-wrap { display:flex; align-items:center; gap:18px; text-decoration:none; }
+  .logo-seal {
+    width: 52px; height: 52px;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    color: var(--ink);
+    position: relative;
+    background: var(--white);
+  }
+  .logo-seal::before {
+    content:'';
+    position:absolute;
+    inset:3px;
+    border: 1px solid var(--ink);
+    border-radius:50%;
+    opacity:0.3;
+  }
+  .logo-text h1 { font-family:'Playfair Display',serif; font-size:17px; font-weight:900; color:var(--ink); letter-spacing:0.02em; line-height:1.1; }
+  .logo-text p { font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-muted); margin-top:3px; font-weight:500; }
+  .nav-center {
+    display:flex;
+    gap:38px;
+    align-items:center;
+  }
+  .nav-center a {
+    text-decoration:none;
+    color: var(--ink-light);
+    font-size:13.5px;
+    font-weight:500;
+    letter-spacing:0.04em;
+    position:relative;
+    padding-bottom:4px;
+    transition: color 0.25s;
+  }
+  .nav-center a::after {
+    content:'';
+    position:absolute;
+    bottom:0; left:0;
+    width:0; height:1.5px;
+    background: var(--coral);
+    transition: width 0.3s ease;
+  }
+  .nav-center a:hover { color: var(--ink); }
+  .nav-center a:hover::after { width:100%; }
+  .header-right { display:flex; align-items:center; gap:14px; }
+  .btn-primary {
+    padding: 11px 26px;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: none;
+    transition: background 0.25s, transform 0.2s;
+    text-transform: uppercase;
+  }
+  .btn-primary:hover { background: var(--ocean); transform: translateY(-1px); }
+  .btn-ghost {
+    padding: 11px 22px;
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: none;
+    transition: all 0.25s;
+    text-transform: uppercase;
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--cream); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 750px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+  .hero-slides { position:absolute; inset:0; }
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  .hero-slide.active { opacity: 1; }
+  .hero-slide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transform: scale(1.04);
+    transition: transform 8s ease;
+    filter: brightness(0.6) saturate(1.1);
+  }
+  .hero-slide.active img { transform: scale(1); }
+  .hero-gradient {
+    position:absolute; inset:0;
+    background: linear-gradient(
+      to bottom,
+      rgba(10,10,10,0.05) 0%,
+      rgba(10,10,10,0.0) 40%,
+      rgba(10,10,10,0.55) 75%,
+      rgba(10,10,10,0.85) 100%
+    );
+    z-index:2;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 5;
+    max-width: 1440px;
+    margin: auto;
+    padding: 0 60px 80px;
+    width: 100%;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    color: var(--gold-light);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .hero-eyebrow span { width:40px; height:1px; background: var(--gold); display:block; }
+  .hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 7vw, 110px);
+    line-height: 0.95;
+    color: var(--white);
+    font-weight: 900;
+    max-width: 900px;
+    letter-spacing: -0.02em;
+  }
+  .hero h2 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-meta {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 48px;
+    gap: 40px;
+  }
+  .hero-desc {
+    color: rgba(255,255,255,0.75);
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 480px;
+    font-weight: 300;
+  }
+  .hero-actions { display:flex; gap:14px; flex-shrink:0; align-items:center; }
+  .btn-hero {
+    padding: 16px 36px;
+    background: var(--white);
+    color: var(--ink);
+    border: none;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.25s;
+  }
+  .btn-hero:hover { background: var(--gold); }
+  .btn-hero-outline {
+    padding: 16px 36px;
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.5);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.25s;
+  }
+  .btn-hero-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+  /* HERO SLIDER DOTS */
+  .hero-dots {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .hero-dot {
+    width: 3px; height: 32px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    cursor: none;
+    transition: background 0.3s, height 0.3s;
+  }
+  .hero-dot.active { background: var(--white); height: 52px; }
+
+  /* HERO SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 90px;
+    right: 60px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255,255,255,0.55);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  .scroll-line {
+    width: 1px; height: 60px;
+    background: linear-gradient(to top, rgba(255,255,255,0.4), transparent);
+  }
+
+  /* STATS STRIP */
+  .stats-strip {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .stats-inner {
+    max-width: 1440px;
+    margin: auto;
+    padding: 0 60px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    border-left: 1px solid rgba(255,255,255,0.06);
+  }
+  .stat-item {
+    padding: 50px 40px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-item::before {
+    content:'';
+    position:absolute;
+    top:0; left:0;
+    width:0; height:3px;
+    background: var(--gold);
+    transition: width 0.6s ease;
+  }
+  .stat-item:hover::before { width:100%; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 62px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat-num sup { font-size: 28px; }
+  .stat-label { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top:10px; font-weight:500; }
+  .stat-sub { font-size: 13px; color: var(--gold-light); margin-top: 6px; font-weight:300; }
+
+  /* EDITORIAL SECTION HEADER */
+  .sec-header {
+    max-width: 1440px;
+    margin: auto;
+    padding: 100px 60px 60px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--rule);
+    gap: 40px;
+  }
+  .sec-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--coral);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sec-eyebrow::before { content:''; width:30px; height:1.5px; background: var(--coral); display:block; }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 4.5vw, 68px);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .sec-title em { font-style: italic; color: var(--ocean); }
+  .sec-desc {
+    font-size: 15.5px;
+    line-height: 1.85;
+    color: var(--ink-muted);
+    max-width: 400px;
+    flex-shrink: 0;
+  }
+
+  /* FEATURED DESTINATIONS */
+  .destinations-grid {
+    max-width: 1440px;
+    margin: auto;
+    padding: 60px;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 24px;
+  }
+  .dest-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: none;
+  }
+  .dest-card-main { grid-row: span 2; }
+  .dest-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s ease;
+    filter: brightness(0.72) saturate(1.05);
+  }
+  .dest-card:hover img { transform: scale(1.04); }
+  .dest-card-main img { height: 700px; }
+  .dest-card-side img { height: 338px; }
+  .dest-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 55%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 36px;
+  }
+  .dest-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--coral);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    margin-bottom: 14px;
+    align-self: flex-start;
+  }
+  .dest-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .dest-card-main .dest-name { font-size: 54px; }
+  .dest-tagline {
+    font-size: 14px;
+    color: rgba(255,255,255,0.68);
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+  .dest-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    color: var(--gold-light);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: gap 0.25s;
+  }
+  .dest-arrow:hover { gap: 14px; }
+  .dest-arrow span { font-size: 18px; }
+
+  /* SERVICES — EDITORIAL GRID */
+  .services-section {
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .services-grid {
+    max-width: 1440px;
+    margin: auto;
+    padding: 0 60px 80px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-left: 1px solid var(--rule);
+  }
+  .service-item {
+    padding: 50px 40px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .service-item:hover { background: var(--white); }
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: rgba(10,10,10,0.06);
+    line-height: 1;
+    margin-bottom: 30px;
+  }
+  .service-icon-wrap {
+    width: 52px; height: 52px;
+    border: 1.5px solid var(--rule);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 24px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .service-item:hover .service-icon-wrap { border-color: var(--coral); background: #fef0ed; }
+  .service-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  .service-desc { font-size: 14px; line-height: 1.85; color: var(--ink-muted); }
+
+  /* BLOG / ARTICLES */
+  .blog-grid {
+    max-width: 1440px;
+    margin: auto;
+    padding: 60px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 40px;
+  }
+  .article-card { cursor: none; }
+  .article-img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+    border-radius: 3px;
+    transition: filter 0.3s;
+    margin-bottom: 24px;
+  }
+  .article-card:hover .article-img { filter: brightness(0.9); }
+  .article-category {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .article-category::before { content:''; width:24px; height:1.5px; background: var(--coral); display:block; }
+  .article-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 14px;
+    transition: color 0.25s;
+  }
+  .article-card:hover .article-title { color: var(--ocean); }
+  .article-excerpt { font-size: 14px; line-height: 1.85; color: var(--ink-muted); margin-bottom: 20px; }
+  .article-meta { font-size: 12px; color: var(--ink-muted); letter-spacing: 0.05em; }
+  .article-meta strong { color: var(--ink); font-weight: 600; }
+
+  /* MARQUEE */
+  .marquee-section {
+    background: var(--ink);
+    overflow: hidden;
+    padding: 22px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 28s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    padding: 0 40px;
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: rgba(255,255,255,0.35);
+    flex-shrink: 0;
+  }
+  .marquee-item strong { font-style: normal; color: var(--gold-light); }
+  .marquee-sep { width: 6px; height: 6px; background: var(--coral); border-radius: 50%; flex-shrink:0; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* FULL-WIDTH CTA */
+  .cta-section {
+    position: relative;
+    overflow: hidden;
+    min-height: 680px;
+    display: flex;
+    align-items: center;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+  }
+  .cta-bg img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(0.35) saturate(0.8);
+  }
+  .cta-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(14,77,110,0.8) 0%, rgba(10,10,10,0.6) 100%);
+  }
+  .cta-content {
+    position: relative;
+    z-index: 5;
+    max-width: 1440px;
+    margin: auto;
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .cta-issue {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(44px, 5vw, 80px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+  }
+  .cta-title em { font-style: italic; color: var(--gold-light); }
+  .cta-body {
+    font-size: 16px;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    margin-bottom: 40px;
+  }
+  .cta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .cta-feat {
+    padding: 30px;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(10px);
+    transition: background 0.3s;
+  }
+  .cta-feat:hover { background: rgba(255,255,255,0.1); }
+  .cta-feat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 900;
+    color: var(--white);
+  }
+  .cta-feat-label { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing:0.08em; text-transform:uppercase; margin-top:4px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 80px 0 40px;
+  }
+  .footer-top {
+    max-width: 1440px;
+    margin: auto;
+    padding: 0 60px 60px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-brand p { font-size:14px; line-height:1.85; color: rgba(255,255,255,0.45); margin-top:22px; }
+  .footer-seal {
+    width: 60px; height: 60px;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 20px;
+  }
+  .footer-heading {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    font-weight: 600;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-links { list-style:none; display:flex; flex-direction:column; gap:13px; }
+  .footer-links a {
+    text-decoration:none;
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+    transition: color 0.25s;
+  }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    max-width: 1440px;
+    margin: auto;
+    padding: 30px 60px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-bottom p { font-size: 12.5px; color: rgba(255,255,255,0.28); letter-spacing:0.04em; }
+  .footer-flag { display:flex; gap:4px; align-items:center; }
+  .flag-stripe { width: 38px; height: 7px; }
+
+  /* ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity:1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* RESPONSIVE */
+  @media(max-width:1100px) {
+    .destinations-grid { grid-template-columns:1fr; }
+    .dest-card-main { grid-row: span 1; }
+    .dest-card-main img { height: 480px; }
+    .services-grid { grid-template-columns: repeat(2,1fr); }
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .cta-content { grid-template-columns: 1fr; }
+  }
+  @media(max-width:768px) {
+    .header-inner { padding: 0 24px; }
+    .nav-center, .btn-ghost { display:none; }
+    .hero-content { padding: 0 24px 60px; }
+    .hero-dots, .scroll-hint { display:none; }
+    .sec-header { padding: 70px 24px 40px; flex-direction:column; }
+    .destinations-grid, .blog-grid, .services-grid { padding: 24px; }
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    .announcement-inner { padding: 0 24px; }
+    .footer-top { padding: 0 24px 40px; grid-template-columns: 1fr; }
+    .footer-bottom { padding: 24px 24px 0; }
+    .cta-content { padding: 60px 24px; }
+    .hero h2 { font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement">
+  <div class="announcement-inner">
+    <div class="announcement-scroll">
+      <span><span class="ann-dot"></span>🇵🇭 &nbsp;Welcome to the Official Philippines Tourism Portal</span>
+      <span><span class="ann-dot"></span>Now open: <a href="#">Visa on Arrival</a> for 157 countries</span>
+      <span><span class="ann-dot"></span>Best Time to Visit: November – May</span>
+    </div>
+    <div style="font-size:11.5px;color:rgba(255,255,255,0.4);letter-spacing:0.08em;text-transform:uppercase">Republic of the Philippines · DOT Official</div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo-wrap">
+      <div class="logo-seal">✦</div>
+      <div class="logo-text">
+        <h1>PHILIPPINES TOURISM</h1>
+        <p>Department of Tourism · Official Portal</p>
+      </div>
+    </a>
+    <nav class="nav-center">
+      <a href="#">Discover</a>
+      <a href="#">Destinations</a>
+      <a href="#">Travel Guide</a>
+      <a href="#">Culture & Events</a>
+      <a href="#">Plan Your Trip</a>
+    </nav>
+    <div class="header-right">
+      <button class="btn-ghost">Travel Guide</button>
+      <button class="btn-primary">Explore Now →</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active">
+      <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?q=80&w=1920&auto=format&fit=crop" alt="Palawan">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1472120435266-53107fd0c44a?q=80&w=1920&auto=format&fit=crop" alt="Chocolate Hills">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1920&auto=format&fit=crop" alt="Boracay">
+    </div>
+  </div>
+  <div class="hero-gradient"></div>
+
+  <div class="hero-dots" id="heroDots">
+    <div class="hero-dot active" onclick="goSlide(0)"></div>
+    <div class="hero-dot" onclick="goSlide(1)"></div>
+    <div class="hero-dot" onclick="goSlide(2)"></div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span></span>
+      Official Government Tourism Platform · Est. 1973
+    </div>
+    <h2>
+      More Than<br>
+      <em>7,640 Islands</em><br>
+      Await You
+    </h2>
+    <div class="hero-meta">
+      <p class="hero-desc">
+        From the turquoise lagoons of Palawan to the volcanic peaks of Luzon — 
+        the Philippines is a living tapestry of paradise, culture, and unforgettable adventure.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-hero">Start Exploring</button>
+        <button class="btn-hero-outline">Virtual Tour</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-num">7,640<sup>+</sup></div>
+      <div class="stat-label">Islands</div>
+      <div class="stat-sub">Across the Philippine Archipelago</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-num">120<sup>+</sup></div>
+      <div class="stat-label">Destinations</div>
+      <div class="stat-sub">UNESCO Heritage & Natural Wonders</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-num">4.9<sup>★</sup></div>
+      <div class="stat-label">Visitor Rating</div>
+      <div class="stat-sub">Based on 2M+ traveler reviews</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Tourism Helpline</div>
+      <div class="stat-sub">Multilingual support available</div>
+    </div>
+  </div>
+</div>
+
+<!-- DESTINATIONS -->
+<div class="sec-header reveal">
+  <div>
+    <div class="sec-eyebrow">Featured Destinations</div>
+    <h2 class="sec-title">Where Will You<br><em>Discover</em> Next?</h2>
+  </div>
+  <p class="sec-desc">
+    Hand-picked by our tourism experts — these are the defining experiences that make the Philippines one of the world's most extraordinary destinations.
+  </p>
+</div>
+
+<div class="destinations-grid">
+  <div class="dest-card dest-card-main reveal">
+    <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?q=80&w=1000&auto=format&fit=crop" alt="Palawan">
+    <div class="dest-overlay">
+      <span class="dest-badge">★ Editor's Pick</span>
+      <div class="dest-name">Palawan</div>
+      <p class="dest-tagline">UNESCO World Heritage · The Last Frontier<br>Puerto Princesa & El Nido await your discovery.</p>
+      <a href="#" class="dest-arrow">Explore Palawan <span>→</span></a>
+    </div>
+  </div>
+  <div class="dest-card dest-card-side reveal reveal-delay-1">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=900&auto=format&fit=crop" alt="Boracay">
+    <div class="dest-overlay">
+      <span class="dest-badge">Beach Paradise</span>
+      <div class="dest-name">Boracay</div>
+      <p class="dest-tagline">World-famous White Beach · Vibrant Nightlife</p>
+      <a href="#" class="dest-arrow">Explore <span>→</span></a>
+    </div>
+  </div>
+  <div class="dest-card dest-card-side reveal reveal-delay-2">
+    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=900&auto=format&fit=crop" alt="Batanes">
+    <div class="dest-overlay">
+      <span class="dest-badge">Highland Wonder</span>
+      <div class="dest-name">Batanes</div>
+      <p class="dest-tagline">Rolling Hills · Stone Villages · Raw Beauty</p>
+      <a href="#" class="dest-arrow">Explore <span>→</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee">
+    <div class="marquee-item"><strong>Palawan</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>The Last Frontier</em> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><strong>Boracay</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>White Sand Dreams</em> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><strong>Siargao</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>Surfer's Paradise</em> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><strong>Batanes</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>Where History Breathes</em> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><strong>Intramuros</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>Heritage & Culture</em> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><strong>Cebu</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>Queen City of the South</em> <span class="marquee-sep"></span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-item"><strong>Palawan</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>The Last Frontier</em> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><strong>Boracay</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>White Sand Dreams</em> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><strong>Siargao</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>Surfer's Paradise</em> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><strong>Batanes</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>Where History Breathes</em> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><strong>Intramuros</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>Heritage & Culture</em> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><strong>Cebu</strong> <span class="marquee-sep"></span></div>
+    <div class="marquee-item"><em>Queen City of the South</em> <span class="marquee-sep"></span></div>
+  </div>
+</div>
+
+<!-- SMART SERVICES -->
+<div class="services-section">
+  <div class="sec-header reveal">
+    <div>
+      <div class="sec-eyebrow">Tourism Services</div>
+      <h2 class="sec-title">Smart Government<br><em>Solutions</em></h2>
+    </div>
+    <p class="sec-desc">
+      Modern, accessible, and secure digital services built for every traveler visiting the Philippines.
+    </p>
+  </div>
+  <div class="services-grid">
+    <div class="service-item reveal">
+      <div class="service-num">01</div>
+      <div class="service-icon-wrap">🛂</div>
+      <div class="service-name">Digital Travel Pass</div>
+      <p class="service-desc">Secure, paperless travel verification integrated with smart entry systems at every major gateway.</p>
+    </div>
+    <div class="service-item reveal reveal-delay-1">
+      <div class="service-num">02</div>
+      <div class="service-icon-wrap">🎧</div>
+      <div class="service-name">24/7 Tourism Hotline</div>
+      <p class="service-desc">Round-the-clock multilingual assistance for local and international travelers, wherever you are.</p>
+    </div>
+    <div class="service-item reveal reveal-delay-2">
+      <div class="service-num">03</div>
+      <div class="service-icon-wrap">🗺️</div>
+      <div class="service-name">AI Smart Navigation</div>
+      <p class="service-desc">Powered by local expertise and AI — real-time maps, transport guides, and hidden gem recommendations.</p>
+    </div>
+    <div class="service-item reveal reveal-delay-3">
+      <div class="service-num">04</div>
+      <div class="service-icon-wrap">🎟️</div>
+      <div class="service-name">Event Booking Platform</div>
+      <p class="service-desc">Secure online reservations for the Philippines' world-class festivals, eco-tours, and heritage events.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BLOG / ARTICLES -->
+<div class="sec-header reveal">
+  <div>
+    <div class="sec-eyebrow">Travel Stories & Guides</div>
+    <h2 class="sec-title">From The<br><em>Tourism Desk</em></h2>
+  </div>
+  <p class="sec-desc">
+    Curated travel articles, destination guides, and cultural insights written by the Philippines Tourism authority.
+  </p>
+</div>
+
+<div class="blog-grid">
+  <div class="article-card reveal">
+    <img class="article-img" src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=900&auto=format&fit=crop" alt="El Nido">
+    <div class="article-category">Destination Guide</div>
+    <h3 class="article-title">El Nido, Palawan: The Complete Island-Hopping Guide for 2025</h3>
+    <p class="article-excerpt">Everything you need to plan the perfect island-hopping adventure across the stunning lagoons of El Nido — from Tour A to Tour D.</p>
+    <div class="article-meta"><strong>DOT Editorial</strong> · May 2025 · 8 min read</div>
+  </div>
+  <div class="article-card reveal reveal-delay-1">
+    <img class="article-img" src="https://images.unsplash.com/photo-1566438480900-0609be27a4be?q=80&w=900&auto=format&fit=crop" alt="Culture">
+    <div class="article-category">Culture & Heritage</div>
+    <h3 class="article-title">Sinulog, Ati-Atihan & Pahiyas: The Grand Festivals of the Philippines</h3>
+    <p class="article-excerpt">An insider's guide to the vibrant cultural festivals that make the Philippines one of the world's most festive nations.</p>
+    <div class="article-meta"><strong>Cultural Affairs Office</strong> · April 2025 · 6 min read</div>
+  </div>
+  <div class="article-card reveal reveal-delay-2">
+    <img class="article-img" src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=900&auto=format&fit=crop" alt="Food">
+    <div class="article-category">Food & Culinary</div>
+    <h3 class="article-title">Adobo to Kare-Kare: A Culinary Journey Through Filipino Cuisine</h3>
+    <p class="article-excerpt">Taste the Philippines through its food — a flavorful journey from the streets of Manila to the dining tables of Pampanga.</p>
+    <div class="article-meta"><strong>Tourism Board</strong> · March 2025 · 5 min read</div>
+  </div>
+</div>
+
+<!-- CTA BANNER -->
+<div class="cta-section">
+  <div class="cta-bg">
+    <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=1920&auto=format&fit=crop" alt="Philippines">
+  </div>
+  <div class="cta-overlay"></div>
+  <div class="cta-content">
+    <div>
+      <div class="cta-issue">Tourism Vision 2030</div>
+      <h2 class="cta-title">Inspiring<br>the World to<br><em>Discover</em><br>the Philippines</h2>
+    </div>
+    <div>
+      <p class="cta-body">
+        The Philippines Department of Tourism is committed to delivering world-class visitor experiences — from pristine natural wonders to living cultural heritage. We welcome the world with open arms and genuine Filipino warmth.
+      </p>
+      <div class="cta-grid">
+        <div class="cta-feat">
+          <div class="cta-feat-num">7.6M</div>
+          <div class="cta-feat-label">Visitors in 2024</div>
+        </div>
+        <div class="cta-feat">
+          <div class="cta-feat-num">₱500B</div>
+          <div class="cta-feat-label">Tourism Revenue</div>
+        </div>
+        <div class="cta-feat">
+          <div class="cta-feat-num">1.7M</div>
+          <div class="cta-feat-label">Jobs Created</div>
+        </div>
+        <div class="cta-feat">
+          <div class="cta-feat-num">17</div>
+          <div class="cta-feat-label">UNESCO Heritage Sites</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;margin-top:28px;flex-wrap:wrap;">
+        <button class="btn-hero">Plan Your Visit</button>
+        <button class="btn-hero-outline">Download Travel Guide</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-seal">✦</div>
+      <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;">Philippines Tourism</div>
+      <p>The official digital tourism platform of the Republic of the Philippines — Department of Tourism & Cultural Affairs. Building a future of smart, sustainable, and inclusive tourism.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Explore</div>
+      <ul class="footer-links">
+        <li><a href="#">All Destinations</a></li>
+        <li><a href="#">Beach & Islands</a></li>
+        <li><a href="#">Mountain & Nature</a></li>
+        <li><a href="#">Heritage Sites</a></li>
+        <li><a href="#">Festivals & Events</a></li>
+        <li><a href="#">Eco-Tourism</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Travel Services</div>
+      <ul class="footer-links">
+        <li><a href="#">Digital Travel Pass</a></li>
+        <li><a href="#">Visa Information</a></li>
+        <li><a href="#">Tourism Helpline</a></li>
+        <li><a href="#">Accredited Hotels</a></li>
+        <li><a href="#">Tour Operators</a></li>
+        <li><a href="#">Travel Insurance</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Government</div>
+      <ul class="footer-links">
+        <li><a href="#">About DOT</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Accessibility</a></li>
+        <li><a href="#">Open Data</a></li>
+        <li><a href="#">Press & Media</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Department of Tourism — Republic of the Philippines. All rights reserved.</p>
+    <p style="display:flex;align-items:center;gap:10px;">🇵🇭 &nbsp;Mabuhay ang Pilipinas</p>
+  </div>
+</footer>
+
+<script>
+// CUSTOM CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mouseX=0,mouseY=0,ringX=0,ringY=0;
+document.addEventListener('mousemove',e=>{
+  mouseX=e.clientX; mouseY=e.clientY;
+  cursor.style.left=mouseX+'px'; cursor.style.top=mouseY+'px';
+});
+function animateRing(){
+  ringX+=(mouseX-ringX)*0.12;
+  ringY+=(mouseY-ringY)*0.12;
+  ring.style.left=ringX+'px'; ring.style.top=ringY+'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a,button,.dest-card,.article-card,.service-item,.stat-item,.hero-dot').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cursor.classList.add('hover'); ring.classList.add('hover'); });
+  el.addEventListener('mouseleave',()=>{ cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+});
+
+// HERO SLIDER
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hero-dot');
+let current = 0;
+function goSlide(n){
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = n;
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+}
+function nextSlide(){ goSlide((current+1)%slides.length); }
+setInterval(nextSlide, 6000);
+window.goSlide = goSlide;
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// BUTTON HOVER RIPPLE
+document.querySelectorAll('.btn-primary,.btn-hero').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect();
+    btn.style.background=`radial-gradient(circle at ${e.clientX-r.left}px ${e.clientY-r.top}px, rgba(255,255,255,0.15), transparent 70%), var(--ink)`;
+  });
+  btn.addEventListener('mouseleave',()=>{ btn.style.background=''; });
+});
+</script>
+</body>
+</html>
