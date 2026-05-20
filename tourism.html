@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Government Tourism Portal</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #f4f7fb;
+      color: #1e293b;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1320px;
+      margin: auto;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(15,23,42,0.08);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: linear-gradient(135deg,#0f172a,#1d4ed8);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 10px 30px rgba(29,78,216,0.15);
+    }
+
+    .logo h1 {
+      font-size: 20px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    .logo p {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 35px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #475569;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #1d4ed8;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg,#1d4ed8,#2563eb);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 12px 25px rgba(37,99,235,0.18);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* HERO */
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 70px;
+      min-height: 92vh;
+      padding: 60px 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 10px 18px;
+      border-radius: 100px;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    .pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #2563eb;
+    }
+
+    .hero h2 {
+      font-size: 74px;
+      line-height: 1.05;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    .gradient-text {
+      color: #2563eb;
+      display: block;
+    }
+
+    .hero p {
+      margin-top: 28px;
+      font-size: 18px;
+      line-height: 1.9;
+      color: #475569;
+      max-width: 720px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 18px;
+      margin-top: 40px;
+    }
+
+    .secondary-btn {
+      padding: 14px 28px;
+      border-radius: 14px;
+      border: 1px solid #cbd5e1;
+      background: white;
+      color: #0f172a;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .secondary-btn:hover {
+      background: #f8fafc;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+      margin-top: 50px;
+    }
+
+    .stat-box {
+      background: white;
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid rgba(15,23,42,0.06);
+      box-shadow: 0 15px 35px rgba(15,23,42,0.04);
+    }
+
+    .stat-box h3 {
+      font-size: 38px;
+      color: #1d4ed8;
+      margin-bottom: 10px;
+    }
+
+    .stat-box span {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    /* HERO IMAGE */
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 720px;
+      object-fit: cover;
+      border-radius: 40px;
+      box-shadow: 0 30px 70px rgba(15,23,42,0.12);
+    }
+
+    .floating-card {
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      bottom: 30px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 28px;
+      border: 1px solid rgba(15,23,42,0.08);
+      box-shadow: 0 15px 35px rgba(15,23,42,0.08);
+    }
+
+    .floating-card span {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    .floating-card h4 {
+      font-size: 28px;
+      margin-top: 10px;
+      color: #0f172a;
+    }
+
+    /* SECTION */
+
+    .section {
+      padding: 110px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-title span {
+      color: #2563eb;
+      letter-spacing: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .section-title h2 {
+      margin-top: 18px;
+      font-size: 56px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    /* SERVICES */
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 28px;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 30px;
+      padding: 35px;
+      border: 1px solid rgba(15,23,42,0.06);
+      box-shadow: 0 15px 35px rgba(15,23,42,0.05);
+      transition: 0.35s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .service-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      background: #eff6ff;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 24px;
+    }
+
+    .service-card h3 {
+      font-size: 23px;
+      margin-bottom: 16px;
+      color: #0f172a;
+    }
+
+    .service-card p {
+      line-height: 1.8;
+      color: #64748b;
+    }
+
+    /* DESTINATION */
+
+    .destinations {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 30px;
+    }
+
+    .destination-card {
+      background: white;
+      border-radius: 34px;
+      overflow: hidden;
+      border: 1px solid rgba(15,23,42,0.06);
+      box-shadow: 0 18px 45px rgba(15,23,42,0.06);
+      transition: 0.35s;
+    }
+
+    .destination-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .destination-card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+    }
+
+    .destination-overlay {
+      padding: 30px;
+    }
+
+    .destination-tag {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 100px;
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .destination-overlay h3 {
+      font-size: 34px;
+      margin-bottom: 15px;
+      color: #0f172a;
+    }
+
+    .destination-overlay p {
+      color: #64748b;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid rgba(15,23,42,0.08);
+      padding: 40px 0;
+      margin-top: 80px;
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: #64748b;
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #2563eb;
+    }
+
+    @media(max-width:1200px){
+      .services,
+      .destinations,
+      .hero {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width:900px){
+      .hero,
+      .services,
+      .destinations {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h2 {
+        font-size: 56px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width:600px){
+      .hero h2 {
+        font-size: 42px;
+      }
+
+      .section-title h2 {
+        font-size: 38px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .hero-image img {
+        height: 500px;
+      }
+    }
+  .hero-bg-circle {
+      position:absolute;
+      width:420px;
+      height:420px;
+      background:rgba(37,99,235,0.08);
+      border-radius:50%;
+      filter:blur(20px);
+      top:30px;
+      left:-100px;
+      z-index:-1;
+    }
+
+    .hero-bg-circle.second {
+      right:-100px;
+      left:auto;
+      top:auto;
+      bottom:20px;
+    }
+
+    .hero-slider {
+      position:relative;
+      overflow:hidden;
+      border-radius:40px;
+    }
+
+    .slide {
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transition:1s ease;
+    }
+
+    .slide.active {
+      opacity:1;
+      position:relative;
+    }
+
+    .slider-controls {
+      position:absolute;
+      top:25px;
+      right:25px;
+      z-index:10;
+      display:flex;
+      gap:12px;
+    }
+
+    .slide-btn {
+      width:52px;
+      height:52px;
+      border:none;
+      border-radius:18px;
+      background:rgba(255,255,255,0.88);
+      backdrop-filter:blur(20px);
+      cursor:pointer;
+      font-size:18px;
+      font-weight:bold;
+      transition:0.3s;
+      box-shadow:0 10px 30px rgba(15,23,42,0.08);
+    }
+
+    .slide-btn:hover {
+      transform:translateY(-2px);
+      background:white;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+    <div class="container">
+      <nav>
+
+        <div class="logo">
+          <div class="logo-icon">✦</div>
+
+          <div>
+            <h1>NATIONAL TOURISM PORTAL</h1>
+            <p>Government of Tourism & Cultural Affairs</p>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <a href="#">Discover</a>
+          <a href="#">Destinations</a>
+          <a href="#">Travel Guide</a>
+          <a href="#">Events</a>
+          <a href="#">Contact</a>
+        </div>
+
+        <button class="btn">Explore Now</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+
+  <section style="background:linear-gradient(135deg,#0f172a,#1e3a8a);padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08)">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;color:white">
+      <div style="display:flex;gap:30px;flex-wrap:wrap;font-size:14px;font-weight:500">
+        <span>🇵🇭 Mabuhay and Welcome to the Philippines</span>
+        <span>🌴 Discover 7,000+ Beautiful Islands</span>
+        <span>✨ Experience Filipino Hospitality</span>
+      </div>
+
+      <div style="font-size:14px;color:#cbd5e1">
+        Department of Tourism • Republic of the Philippines
+      </div>
+    </div>
+  </section>
+
+  <!-- HERO -->
+
+  <section class="hero container">
+
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle second"></div>
+
+    <div>
+
+      <div class="tag">
+        <div class="pulse"></div>
+        Official Government Tourism Platform
+      </div>
+
+      <h2>
+        Explore The Beauty Of
+        <span class="gradient-text">The Philippines</span>
+      </h2>
+
+      <p>
+        Experience world-famous beaches, rich cultural heritage, breathtaking mountains, modern tourism experiences, and the warm hospitality of the Filipino people through a next-generation digital tourism platform designed to inspire every traveler.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="btn">Start Exploring</button>
+        <button class="secondary-btn">Virtual Tour</button>
+      </div>
+
+      <div class="stats">
+
+        <div class="stat-box">
+          <h3>120+</h3>
+          <span>Tourist Destinations</span>
+        </div>
+
+        <div class="stat-box">
+          <h3>4.9★</h3>
+          <span>Visitor Satisfaction</span>
+        </div>
+
+        <div class="stat-box">
+          <h3>24/7</h3>
+          <span>Tourism Support</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="hero-image">
+
+      <div class="slider-controls">
+        <button class="slide-btn" onclick="prevSlide()">❮</button>
+        <button class="slide-btn" onclick="nextSlide()">❯</button>
+      </div>
+
+      <div class="hero-slider">
+        <img class="slide active" src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?q=80&w=1600&auto=format&fit=crop" alt="Philippines Beach">
+
+        <img class="slide" src="https://images.unsplash.com/photo-1526481280695-3c4691e1413c?q=80&w=1600&auto=format&fit=crop" alt="Philippines Mountain">
+
+        <img class="slide" src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format&fit=crop" alt="Philippines City">
+      </div>
+
+      <div class="floating-card">
+        <span style="color:#67e8f9">Featured Philippine Destination</span>
+        <h4>Palawan Paradise Islands</h4>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SERVICES -->
+
+  <section class="section container">
+
+    <div class="section-title">
+      <span>Smart Tourism Services</span>
+      <h2>Modern Government Solutions</h2>
+    </div>
+
+    <div class="services">
+
+      <div class="service-card">
+        <div class="service-icon">✦</div>
+        <h3>Digital Travel Pass</h3>
+        <p>
+          Secure and modern digital travel verification integrated with smart tourism systems.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">✦</div>
+        <h3>Tourism Assistance</h3>
+        <p>
+          24/7 tourism support and smart assistance for local and international travelers.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">✦</div>
+        <h3>Smart Navigation</h3>
+        <p>
+          AI-powered maps and navigation systems for seamless travel experiences.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">✦</div>
+        <h3>Online Event Booking</h3>
+        <p>
+          Easy and secure online reservations for tourism activities and festivals.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- DESTINATIONS -->
+
+  <section class="section container">
+
+    <div class="section-title">
+      <span>Featured Places</span>
+      <h2>Top Destinations</h2>
+    </div>
+
+    <div class="destinations">
+
+      <div class="destination-card">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1400&auto=format&fit=crop">
+
+        <div class="destination-overlay">
+          <div class="destination-tag">Northern Province</div>
+          <h3>Crystal Coastline</h3>
+          <p>
+            Experience world-class beaches, luxury resorts, and breathtaking ocean adventures.
+          </p>
+
+          <button class="btn">Explore Destination</button>
+        </div>
+      </div>
+
+      <div class="destination-card">
+        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1400&auto=format&fit=crop">
+
+        <div class="destination-overlay">
+          <div class="destination-tag">Central District</div>
+          <h3>Heritage City</h3>
+          <p>
+            Explore historical architecture, cultural festivals, and iconic landmarks.
+          </p>
+
+          <button class="btn">Explore Destination</button>
+        </div>
+      </div>
+
+      <div class="destination-card">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop">
+
+        <div class="destination-overlay">
+          <div class="destination-tag">Highland Region</div>
+          <h3>Mountain Escape</h3>
+          <p>
+            Adventure through scenic mountains, waterfalls, and eco-tourism trails.
+          </p>
+
+          <button class="btn">Explore Destination</button>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <section class="section container">
+
+    <div class="section-title">
+      <span>Why Visit The Philippines</span>
+      <h2>Experience Paradise Like Never Before</h2>
+    </div>
+
+    <div class="services">
+
+      <div class="service-card">
+        <div class="service-icon">🏝️</div>
+        <h3>World-Class Beaches</h3>
+        <p>
+          Discover crystal-clear waters, white sand beaches, and breathtaking tropical islands across the Philippines.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🎉</div>
+        <h3>Rich Filipino Culture</h3>
+        <p>
+          Experience vibrant festivals, local traditions, and authentic Filipino hospitality everywhere you go.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⛰️</div>
+        <h3>Nature Adventures</h3>
+        <p>
+          Explore mountains, waterfalls, diving spots, eco-parks, and unforgettable outdoor experiences.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🏙️</div>
+        <h3>Modern Tourism</h3>
+        <p>
+          Enjoy smart tourism services, modern accommodations, digital guides, and safe travel experiences.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="section container">
+
+    <div style="background:linear-gradient(135deg,#1d4ed8,#0f172a);padding:70px;border-radius:40px;color:white;position:relative;overflow:hidden">
+
+      <div style="position:absolute;width:400px;height:400px;background:rgba(255,255,255,0.08);border-radius:50%;top:-150px;right:-100px"></div>
+
+      <div style="position:relative;z-index:2;max-width:760px">
+
+        <span style="letter-spacing:4px;text-transform:uppercase;color:#93c5fd;font-size:13px;font-weight:700">
+          Tourism Vision 2030
+        </span>
+
+        <h2 style="font-size:58px;line-height:1.1;margin-top:20px;font-weight:900">
+          Inspiring Travelers To Discover The Heart Of The Philippines
+        </h2>
+
+        <p style="margin-top:25px;line-height:1.9;color:#dbeafe;font-size:18px">
+          From the stunning islands of Palawan and Boracay to the rich heritage of Intramuros and the natural wonders of Mindanao, the Philippines welcomes the world with unforgettable experiences and genuine Filipino warmth.
+        </p>
+
+        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:40px">
+          <button class="btn">Start Your Journey</button>
+          <button class="secondary-btn">View Travel Guide</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+<footer>
+    <div class="container footer-content">
+
+      <div>
+        <h2 style="font-size:28px;font-weight:900">National Tourism Portal</h2>
+        <p style="margin-top:10px;color:#94a3b8">
+          Building the future of smart and sustainable tourism.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Government Services</a>
+        <a href="#">Tourism Updates</a>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <script>
+
+    // SIMPLE SCROLL ANIMATION
+
+    const cards = document.querySelectorAll('.service-card, .destination-card, .stat-box');
+
+    const observer = new IntersectionObserver((entries) => {
+
+      entries.forEach(entry => {
+
+        if(entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0px)';
+        }
+
+      });
+
+    }, {
+      threshold: 0.2
+    });
+
+
+    cards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(40px)';
+      card.style.transition = '0.8s ease';
+
+      observer.observe(card);
+    });
+
+
+    // BUTTON RIPPLE EFFECT
+
+    const buttons = document.querySelectorAll('.btn');
+
+    buttons.forEach(button => {
+
+      button.addEventListener('mousemove', function(e) {
+
+        const x = e.offsetX;
+        const y = e.offsetY;
+
+        button.style.background = `radial-gradient(circle at ${x}px ${y}px, #60a5fa, #1d4ed8)`;
+
+      });
+
+      button.addEventListener('mouseleave', function() {
+        button.style.background = 'linear-gradient(135deg,#1d4ed8,#2563eb)';
+      });
+
+    });
+
+
+    // ADVANCED SLIDER
+
+    const slides = document.querySelectorAll('.slide');
+
+    let currentSlide = 0;
+
+    function showSlide(index) {
+
+      slides.forEach(slide => {
+        slide.classList.remove('active');
+      });
+
+      slides[index].classList.add('active');
+    }
+
+    function nextSlide() {
+      currentSlide++;
+
+      if(currentSlide >= slides.length) {
+        currentSlide = 0;
+      }
+
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide--;
+
+      if(currentSlide < 0) {
+        currentSlide = slides.length - 1;
+      }
+
+      showSlide(currentSlide);
+    }
+
+    setInterval(nextSlide, 5000);
+
+  </script>
+
+</body>
+</html>
